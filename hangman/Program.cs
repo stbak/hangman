@@ -12,12 +12,13 @@ namespace hangman
             GuessCompare(guess, word);
             WriteHangman();
         }
-    
-}
 
 
 
-        static void GuessCompare(char guess, string word){
+
+
+        static void GuessCompare(char guess, string word)
+        {
             bool correctGuess = false;
             for (int i = 0; i < word.Length; i++)
             {
@@ -26,17 +27,18 @@ namespace hangman
                     Console.WriteLine(guess);
                     correctGuess = true;
                 }
-                
+
             }
             if (correctGuess == false)
             {
                 Console.WriteLine("Not a correct guess");
             }
-            else if (correctGuess){
-Console.WriteLine("Correct");
-}
-}
-}
+            else if (correctGuess)
+            {
+                Console.WriteLine("Correct");
+            }
+        }
+
 
         static void WriteHangman()
         {
@@ -54,11 +56,6 @@ Console.WriteLine("Correct");
             Console.WriteLine($" You won!");
             Console.ResetColor();
         }
-
-        static void DrawHangman(int image)
-        {
-            switch (image)
-            {   
 
         static void DrawHangman(int image)
         {
@@ -121,4 +118,5 @@ Console.WriteLine("Correct");
             }
         }
     }
+
 }
