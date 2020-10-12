@@ -6,7 +6,17 @@ namespace hangman
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
+            PrintTheHill();
+
+            string test = "abcdefgh";
+
+            TheHangmanWord.Run();
+        }
+
+        static void PrintTheHill() {
+            Console.WriteLine("Width: " + Console.WindowWidth.ToString() + ", height: " + Console.WindowHeight.ToString()
+                );
         }
     }
 }
