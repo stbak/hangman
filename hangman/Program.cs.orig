@@ -6,8 +6,8 @@ namespace hangman
     {
         static void Main(string[] args)
         {
-
-            WriteHangman();
+            Console.WriteLine("Hello World!");
+        }
 
         static void WriteHangman()
         {
@@ -87,5 +87,4 @@ namespace hangman
             }
         }
     }
-}
 }
