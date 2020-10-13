@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace hangman
 {
@@ -7,7 +8,7 @@ namespace hangman
     {
 
         static string wordToGuess;
-        static string guessedWord;
+        static StringBuilder guessedWord = new StringBuilder();
         static List<char> guesses = new List<char>();
         static int guessesLeft = 6;
 
@@ -19,14 +20,14 @@ namespace hangman
             GuessCompare(guess, word);
 
             wordToGuess = "Sommar".ToUpper();
-            guessedWord = "------";
+            guessedWord.Append("------");
             RunGame();
         }
 
 
         static void RunGame()
         {
-            while (guessedWord != wordToGuess && guessesLeft > 0)
+            while (guessedWord.ToString() != wordToGuess && guessesLeft > 0)
             {
                 DisplayHangmanGame();
                 string input = Console.ReadLine().ToUpper();
