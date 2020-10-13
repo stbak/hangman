@@ -48,7 +48,8 @@ namespace hangman
                 string input = Console.ReadLine().ToUpper();
                 char guess = input[0];
 
-                if (false) //!ValidInput(input)
+                
+                if (input.Length > 1) //!ValidInput(input)
                 {
                     DisplayIncorrectMessage("Invalid guess");
                 }
@@ -58,19 +59,28 @@ namespace hangman
                 }
                 else
                 {
-                    // Add guess to guesses
-                    guesses.Add(guess);
+                    if (ValidateInputChar.IsInputOk(guess))
+                    {
+                        // Add guess to guesses
+                        guesses.Add(guess);
 
-                    if (wordToGuess.Contains(guess))
-                    {
-                        DisplayCorrectMessage("Correct");
-                        // Update guessedWord
+                        if (wordToGuess.Contains(guess))
+                        {
+                            DisplayCorrectMessage("Correct");
+                            // Update guessedWord
+                        }
+                        else
+                        {
+                            DisplayIncorrectMessage("Wrong");
+                            guessesLeft--;
+                        }
                     }
-                    else
+                    else 
                     {
-                        DisplayIncorrectMessage("Wrong");
+                        DisplayIncorrectMessage("Invalid guess");
                         guessesLeft--;
                     }
+                    
                 }
 
                 if (guessesLeft > 0)
