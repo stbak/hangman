@@ -9,9 +9,21 @@ namespace hangman
 
         static string wordToGuess;
         static StringBuilder guessedWord = new StringBuilder();
-        static List<char> guesses = new List<char>();
+        static List<char> guesses = new List<char>(); // todo: tips "Hash<char>"
         static int guessesLeft = 6;
 
+        /* todo: större
+          
+           Separera GUI med spelmotorn 
+          
+           Hangman - motorn (innehåller ingen gui)*-6+99
+
+           Gui
+
+           var h = new Hangman()
+           h.Run();
+          
+         */
         static void Main(string[] args)
         {
             string word = GenerateRandomWord.RandomWord();
@@ -31,15 +43,17 @@ namespace hangman
         // todo: metoderna ska beskriva sig själva
         static void RunGame()
         {
-            while (guessedWord.ToString() != wordToGuess && guessesLeft > 0)
+
+            while (guessedWord.ToString() != wordToGuess && guessesLeft > 0) // todo: ev metod
             {
                 DisplayHangmanGame();
                 string input = GetGuessFromUser();
 
-                if (ValidInput(input))
+                if (ValidInput(input)) // todo: namngivning
                 {
                     char guess = input[0];
 
+                    // todo: finlir: göra koden smalare
                     if (guesses.Contains(guess))
                     {
                         DisplayIncorrectMessage($"You have already guessed '{guess}'");
@@ -98,7 +112,7 @@ namespace hangman
             if (guessesLeft > 0)
             {
                 // Wait for user to press any key
-                Console.WriteLine("\nPress any key to continue...");
+                Console.WriteLine("\n\nPress any key to continue...");
                 Console.ReadKey();
             }
         }
@@ -241,4 +255,3 @@ namespace hangman
     }
 
 }
-
