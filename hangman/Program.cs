@@ -15,11 +15,11 @@ namespace hangman
         static void Main(string[] args)
         {
             char guess = 'o';
-            string word = "Sommar";
-            Console.WriteLine();
+            string word = GenerateRandomWord.RandomWord();
+            Console.WriteLine("Word: " + word);
             GuessCompare(guess, word);
 
-            wordToGuess = "Sommar".ToUpper();
+            wordToGuess = word.ToUpper();
             guessedWord.Append("------");
             RunGame();
         }
@@ -65,17 +65,15 @@ namespace hangman
                     Console.ReadKey();
                 }
             }
+            
 
-            DisplayHangmanGame();
-            if (guessesLeft == 0)
-            {
-                WriteMessage("You lost!", false);
-            }
-            else
-            {
-                WriteMessage("You won!", true);
-            }
+            //wordToGuess = "Sommar".ToUpper();
+            guessedWord = "------";
+            RunGame();
         }
+
+
+
 
 
         static void GuessCompare(char guess, string word)
@@ -103,7 +101,7 @@ namespace hangman
 
         static void DisplayHangmanGame()
         {
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine();
 
             DrawHangman(6 - guessesLeft);
@@ -209,3 +207,4 @@ namespace hangman
     }
 
 }
+
