@@ -14,8 +14,6 @@ namespace hangman
         static void Main(string[] args)
         {
             char guess = 'o';
-            //string word = "Sommar";
-            //Console.WriteLine();
             string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
             GuessCompare(guess, word);
