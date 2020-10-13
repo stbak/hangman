@@ -28,7 +28,7 @@ namespace hangman
 
         public static string RandomWord()
         {
-            string[] words = { "Sommar", "Vinter", "Vår", "Höst", "Midsommar", "Påsk", "Pingst", "Julafton", "Nyårsafton", "Allhelgona" };
+            string[] words = { "Sommar", "Vinter", "Vår", "Höst", "Midsommar", "Påsk", "Pingst", "Julafton", "Nyårsafton", "Allhelgona", "Kanelbulle" };
             string rndWord = null;
             Random rnd = new Random();
             double randomNumber = Math.Round(rnd.NextDouble() * 10);
