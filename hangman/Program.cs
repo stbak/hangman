@@ -66,18 +66,18 @@ namespace hangman
 
                         if (wordToGuess.Contains(guess))
                         {
-                            WriteMessage("Correct", true);
+                            DisplayCorrectMessage("Correct");
                             // Update guessedWord
                         }
                         else
                         {
-                            WriteMessage("Wrong", false);
+                            DisplayIncorrectMessage("Wrong");
                             guessesLeft--;
                         }
                     }
                     else 
                     {
-                        WriteMessage("Invalid guess", false);
+                        DisplayIncorrectMessage("Invalid guess");
                         guessesLeft--;
                     }
                     
