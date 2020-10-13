@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*
+ 
+Todo:
+
+- Validera: flera tecken eller ett konstigt tecken
+- Uppdatera guessedword
+- "ttt"-buggen
+- Räkna inte ner om användaren gissar konstigt tecken
+
+ 
+ */
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,7 +35,7 @@ namespace hangman
             RunGame();
         }
 
-
+        // todo: går det att extrahera metoder ur denna?
         static void RunGame()
         {
             while (guessedWord.ToString() != wordToGuess && guessesLeft > 0)
@@ -68,14 +79,15 @@ namespace hangman
             
 
             //wordToGuess = "Sommar".ToUpper();
-            guessedWord = "------";
-            RunGame();
+           
+            //RunGame();
         }
 
 
 
 
-
+        // todo: metoder 1-7 långa
+        // todo: metoderna ska beskriva sig själva
         static void GuessCompare(char guess, string word)
         {
             bool correctGuess = false;
