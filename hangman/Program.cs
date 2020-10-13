@@ -2,9 +2,9 @@
  
 Todo:
 
-- Validera: flera tecken eller ett konstigt tecken
+- Validera: flera tecken eller ett konstigt tecken (Stefan)
 - Uppdatera guessedword
-- "ttt"-buggen
+- "ttt"-buggen (Stefan)
 - Räkna inte ner om användaren gissar konstigt tecken
 
  
@@ -44,7 +44,8 @@ namespace hangman
                 string input = Console.ReadLine().ToUpper();
                 char guess = input[0];
 
-                if (false) //!ValidInput(input)
+                
+                if (input.Length > 1) //!ValidInput(input)
                 {
                     WriteMessage("Invalid guess", false);
                 }
@@ -54,19 +55,28 @@ namespace hangman
                 }
                 else
                 {
-                    // Add guess to guesses
-                    guesses.Add(guess);
+                    if (ValidateInputChar.IsInputOk(guess))
+                    {
+                        // Add guess to guesses
+                        guesses.Add(guess);
 
-                    if (wordToGuess.Contains(guess))
-                    {
-                        WriteMessage("Correct", true);
-                        // Update guessedWord
+                        if (wordToGuess.Contains(guess))
+                        {
+                            WriteMessage("Correct", true);
+                            // Update guessedWord
+                        }
+                        else
+                        {
+                            WriteMessage("Wrong", false);
+                            guessesLeft--;
+                        }
                     }
-                    else
+                    else 
                     {
-                        WriteMessage("Wrong", false);
+                        WriteMessage("Invalid guess", false);
                         guessesLeft--;
                     }
+                    
                 }
 
                 if (guessesLeft > 0)
