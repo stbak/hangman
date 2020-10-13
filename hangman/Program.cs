@@ -31,7 +31,7 @@ namespace hangman
             GuessCompare(guess, word);
 
             // Wait for user to press any key
-            Console.WriteLine("\nPress any key to start game...");
+            Console.WriteLine("\nPress any key to start the game...");
             Console.ReadKey();
 
             wordToGuess = word.ToUpper();
@@ -116,24 +116,32 @@ namespace hangman
 
         static void DisplayHangmanGame()
         {
+            // Clear console
             Console.Clear();
             Console.WriteLine();
 
+            // Draw hangman
             DrawHangman(6 - guessesLeft);
-
             Console.WriteLine();
+
+            // Write word with placeholders
             Console.WriteLine(" " + guessedWord);
             Console.WriteLine();
+
+            // Write guessed characters
             foreach (char c in guesses)
             {
                 Console.Write($" {c}");
             }
             Console.WriteLine();
             Console.WriteLine();
+
+            // Write number of guesses remaining
             Console.WriteLine($" Guesses left: {guessesLeft}");
 
             if (guessesLeft > 0)
             {
+                // Ask user to enter a guess
                 Console.WriteLine();
                 Console.Write($" Your guess: ");
             }
