@@ -25,13 +25,13 @@ namespace hangman
 
         static void Main(string[] args)
         {
-            char guess = 'o';
-            string word = GenerateRandomWord.RandomWord();
+            
+             string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
-            GuessCompare(guess, word);
-
+           
             wordToGuess = word.ToUpper();
             guessedWord.Append("------");
+            
             RunGame();
         }
 
@@ -60,7 +60,7 @@ namespace hangman
                     if (wordToGuess.Contains(guess))
                     {
                         WriteMessage("Correct", true);
-                        // Update guessedWord
+                        AddCorrectGuess(guess);
                     }
                     else
                     {
@@ -88,28 +88,18 @@ namespace hangman
 
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
-        static void GuessCompare(char guess, string word)
+        static void AddCorrectGuess(char guess)
         {
-            bool correctGuess = false;
-            for (int i = 0; i < word.Length; i++)
+            for (int i = 0; i < wordToGuess.Length; i++)
             {
-                if (guess == word[i])
-                {
-                    Console.WriteLine(guess);
-                    correctGuess = true;
+                if (guess == wordToGuess[i])
+                {         
+                  guessedWord[i] = guess;
                 }
-
-            }
-            if (correctGuess == false)
-            {
-                Console.WriteLine("Not a correct guess");
-            }
-            else if (correctGuess)
-            {
-                Console.WriteLine("Correct");
             }
         }
 
+      
 
         static void DisplayHangmanGame()
         {
