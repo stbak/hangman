@@ -1,15 +1,4 @@
-﻿/*
- 
-Todo:
-
-- Validera: flera tecken eller ett konstigt tecken
-- Uppdatera guessedword
-- "ttt"-buggen
-- Räkna inte ner om användaren gissar konstigt tecken
-
- 
- */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,12 +14,9 @@ namespace hangman
 
         static void Main(string[] args)
         {
-            
-             string word = GenerateRandomWord.RandomWord();
+            string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
-            
 
-       
             // Wait for user to press any key
             Console.WriteLine("\nPress any key to start the game...");
             Console.ReadKey();
@@ -41,35 +27,32 @@ namespace hangman
         }
 
         // todo: går det att extrahera metoder ur denna?
+        // todo: metoder 1-7 långa
+        // todo: metoderna ska beskriva sig själva
         static void RunGame()
         {
             while (guessedWord.ToString() != wordToGuess && guessesLeft > 0)
             {
                 DisplayHangmanGame();
-                string input = Console.ReadLine().ToUpper();
-                char guess = input[0];
+                string input = GetGuessFromUser();
 
-                
-                if (input.Length > 1) //!ValidInput(input)
+                if (ValidInput(input))
                 {
-                    DisplayIncorrectMessage("Invalid guess");
-                }
-                else if (guesses.Contains(guess))
-                {
-                    DisplayIncorrectMessage($"You have already guessed '{guess}'");
-                }
-                else
-                {
-                    if (ValidateInputChar.IsInputOk(guess))
+                    char guess = input[0];
+
+                    if (guesses.Contains(guess))
+                    {
+                        DisplayIncorrectMessage($"You have already guessed '{guess}'");
+                    }
+                    else
                     {
                         // Add guess to guesses
                         guesses.Add(guess);
 
-                   
                         if (wordToGuess.Contains(guess))
                         {
                             DisplayCorrectMessage("Correct");
-                         AddCorrectGuess(guess);
+                            AddCorrectGuess(guess);
                         }
                         else
                         {
@@ -77,44 +60,61 @@ namespace hangman
                             guessesLeft--;
                         }
                     }
-                    else 
-                    {
-                        DisplayIncorrectMessage("Invalid guess");
-                        guessesLeft--;
-                    }
-                    
                 }
-
-                if (guessesLeft > 0)
-                {
-                    // Wait for user to press any key
-                    Console.WriteLine("\nPress any key to continue...");
-                    Console.ReadKey();
-                }
-
-                DisplayHangmanGame();
-                if (guessesLeft == 0)
-                    DisplayIncorrectMessage("You lost!");
                 else
-                    DisplayCorrectMessage("You won!");
+                {
+                    DisplayIncorrectMessage("Invalid guess");
+                }
+
+                WaitForUserToContinue();
+                EndGame();
             }
         }
 
 
-        // todo: metoder 1-7 långa
-        // todo: metoderna ska beskriva sig själva
+        static string GetGuessFromUser()
+        {
+            // Ask user to enter a guess
+            Console.WriteLine();
+            Console.Write($" Your guess: ");
+            return Console.ReadLine().ToUpper();
+        }
+
+        static bool ValidInput(string input)
+        {
+            if (input.Length < 1 || input.Length > 1)
+            {
+                return false;
+            }
+            if (ValidateInputChar.IsInputOk(input[0]))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        static void WaitForUserToContinue()
+        {
+            if (guessesLeft > 0)
+            {
+                // Wait for user to press any key
+                Console.WriteLine("\nPress any key to continue...");
+                Console.ReadKey();
+            }
+        }
+
+
         static void AddCorrectGuess(char guess)
         {
             for (int i = 0; i < wordToGuess.Length; i++)
             {
                 if (guess == wordToGuess[i])
-                {         
-                  guessedWord[i] = guess;
+                {
+                    guessedWord[i] = guess;
                 }
             }
         }
 
-      
 
         static void DisplayHangmanGame()
         {
@@ -140,13 +140,16 @@ namespace hangman
 
             // Write number of guesses remaining
             Console.WriteLine($" Guesses left: {guessesLeft}");
+        }
 
-            if (guessesLeft > 0)
-            {
-                // Ask user to enter a guess
-                Console.WriteLine();
-                Console.Write($" Your guess: ");
-            }
+        static void EndGame()
+        {
+            DisplayHangmanGame();
+            if (guessesLeft == 0)
+                DisplayIncorrectMessage("You lost!");
+            else
+                DisplayCorrectMessage("You won!");
+
         }
 
         static void DisplayCorrectMessage(string message)
