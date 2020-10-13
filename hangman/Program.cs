@@ -32,7 +32,7 @@ namespace hangman
                 string input = Console.ReadLine().ToUpper();
                 char guess = input[0];
 
-                if (false) //!ValidInput(input))
+                if (false) //!ValidInput(input)
                 {
                     WriteMessage("Invalid guess", false);
                 }
@@ -42,6 +42,7 @@ namespace hangman
                 }
                 else
                 {
+                    // Add guess to guesses
                     guesses.Add(guess);
 
                     if (wordToGuess.Contains(guess))
@@ -103,13 +104,20 @@ namespace hangman
         {
             Console.Clear();
             Console.WriteLine();
+
             DrawHangman(5 - guessesLeft);
+
             Console.WriteLine();
-            Console.WriteLine($" M--RITZ");
+            Console.WriteLine(" " + guessedWord);
             Console.WriteLine();
-            Console.WriteLine($" A S I K B");
+            foreach (char c in guesses)
+            {
+                Console.Write($" {c}");
+            }
             Console.WriteLine();
-            Console.WriteLine($" Guesses left: 6");
+            Console.WriteLine();
+            Console.WriteLine($" Guesses left: {guessesLeft}");
+
             if (guessesLeft > 0)
             {
                 Console.WriteLine();
