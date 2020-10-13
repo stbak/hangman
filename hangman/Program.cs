@@ -28,10 +28,15 @@ namespace hangman
             
              string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
-           
-            wordToGuess = word.ToUpper();
-            guessedWord.Append("------");
             
+
+       
+            // Wait for user to press any key
+            Console.WriteLine("\nPress any key to start game...");
+            Console.ReadKey();
+
+            wordToGuess = word.ToUpper();
+            guessedWord.Append('-', wordToGuess.Length);
             RunGame();
         }
 
@@ -44,29 +49,40 @@ namespace hangman
                 string input = Console.ReadLine().ToUpper();
                 char guess = input[0];
 
-                if (false) //!ValidInput(input)
+                
+                if (input.Length > 1) //!ValidInput(input)
                 {
-                    WriteMessage("Invalid guess", false);
+                    DisplayIncorrectMessage("Invalid guess");
                 }
                 else if (guesses.Contains(guess))
                 {
-                    WriteMessage($"You have already guessed '{guess}'", false);
+                    DisplayIncorrectMessage($"You have already guessed '{guess}'");
                 }
                 else
                 {
-                    // Add guess to guesses
-                    guesses.Add(guess);
+                    if (ValidateInputChar.IsInputOk(guess))
+                    {
+                        // Add guess to guesses
+                        guesses.Add(guess);
 
-                    if (wordToGuess.Contains(guess))
-                    {
-                        WriteMessage("Correct", true);
-                        AddCorrectGuess(guess);
+                   
+                        if (wordToGuess.Contains(guess))
+                        {
+                            DisplayCorrectMessage("Correct");
+                         AddCorrectGuess(guess);
+                        }
+                        else
+                        {
+                            DisplayIncorrectMessage("Wrong");
+                            guessesLeft--;
+                        }
                     }
-                    else
+                    else 
                     {
-                        WriteMessage("Wrong", false);
+                        DisplayIncorrectMessage("Invalid guess");
                         guessesLeft--;
                     }
+                    
                 }
 
                 if (guessesLeft > 0)
@@ -75,15 +91,14 @@ namespace hangman
                     Console.WriteLine("\nPress any key to continue...");
                     Console.ReadKey();
                 }
+
+                DisplayHangmanGame();
+                if (guessesLeft == 0)
+                    DisplayIncorrectMessage("You lost!");
+                else
+                    DisplayCorrectMessage("You won!");
             }
-            
-
-            //wordToGuess = "Sommar".ToUpper();
-           
-            //RunGame();
         }
-
-
 
 
         // todo: metoder 1-7 långa
@@ -103,7 +118,7 @@ namespace hangman
 
         static void DisplayHangmanGame()
         {
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine();
 
             DrawHangman(6 - guessesLeft);
@@ -126,13 +141,18 @@ namespace hangman
             }
         }
 
-        static void WriteMessage(string message, bool isGood)
+        static void DisplayCorrectMessage(string message)
         {
             Console.WriteLine();
-            if (isGood)
-                Console.ForegroundColor = ConsoleColor.Green;
-            else
-                Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" " + message);
+            Console.ResetColor();
+        }
+
+        static void DisplayIncorrectMessage(string message)
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" " + message);
             Console.ResetColor();
         }
@@ -206,6 +226,7 @@ namespace hangman
                     break;
             }
         }
+
     }
 
 }
