@@ -30,8 +30,12 @@ namespace hangman
             Console.WriteLine("Word: " + word);
             GuessCompare(guess, word);
 
+            // Wait for user to press any key
+            Console.WriteLine("\nPress any key to start game...");
+            Console.ReadKey();
+
             wordToGuess = word.ToUpper();
-            guessedWord.Append("------");
+            guessedWord.Append('-', wordToGuess.Length);
             RunGame();
         }
 
