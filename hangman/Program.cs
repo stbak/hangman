@@ -66,7 +66,7 @@ namespace hangman
                     Console.ReadKey();
                 }
             }
-            GuessCompare(guess, wordToGuess);
+            
 
             //wordToGuess = "Sommar".ToUpper();
             guessedWord = "------";
