@@ -46,11 +46,11 @@ namespace hangman
 
                 if (false) //!ValidInput(input)
                 {
-                    WriteMessage("Invalid guess", false);
+                    DisplayIncorrectMessage("Invalid guess");
                 }
                 else if (guesses.Contains(guess))
                 {
-                    WriteMessage($"You have already guessed '{guess}'", false);
+                    DisplayIncorrectMessage($"You have already guessed '{guess}'");
                 }
                 else
                 {
@@ -59,12 +59,12 @@ namespace hangman
 
                     if (wordToGuess.Contains(guess))
                     {
-                        WriteMessage("Correct", true);
+                        DisplayCorrectMessage("Correct");
                         // Update guessedWord
                     }
                     else
                     {
-                        WriteMessage("Wrong", false);
+                        DisplayIncorrectMessage("Wrong");
                         guessesLeft--;
                     }
                 }
@@ -75,15 +75,14 @@ namespace hangman
                     Console.WriteLine("\nPress any key to continue...");
                     Console.ReadKey();
                 }
+
+                DisplayHangmanGame();
+                if (guessesLeft == 0)
+                    DisplayIncorrectMessage("You lost!");
+                else
+                    DisplayCorrectMessage("You won!");
             }
-            
-
-            //wordToGuess = "Sommar".ToUpper();
-           
-            //RunGame();
         }
-
-
 
 
         // todo: metoder 1-7 långa
@@ -113,7 +112,7 @@ namespace hangman
 
         static void DisplayHangmanGame()
         {
-            //Console.Clear();
+            Console.Clear();
             Console.WriteLine();
 
             DrawHangman(6 - guessesLeft);
@@ -136,13 +135,18 @@ namespace hangman
             }
         }
 
-        static void WriteMessage(string message, bool isGood)
+        static void DisplayCorrectMessage(string message)
         {
             Console.WriteLine();
-            if (isGood)
-                Console.ForegroundColor = ConsoleColor.Green;
-            else
-                Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" " + message);
+            Console.ResetColor();
+        }
+
+        static void DisplayIncorrectMessage(string message)
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" " + message);
             Console.ResetColor();
         }
@@ -216,6 +220,7 @@ namespace hangman
                     break;
             }
         }
+
     }
 
 }
