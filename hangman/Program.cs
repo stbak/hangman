@@ -14,11 +14,13 @@ namespace hangman
         static void Main(string[] args)
         {
             char guess = 'o';
-            string word = "Sommar";
-            Console.WriteLine();
+            //string word = "Sommar";
+            //Console.WriteLine();
+            string word = GenerateRandomWord.RandomWord();
+            Console.WriteLine("Word: " + word);
             GuessCompare(guess, word);
 
-            wordToGuess = "Sommar".ToUpper();
+            wordToGuess = word.ToUpper();
             guessedWord = "------";
             RunGame();
         }
@@ -63,9 +65,9 @@ namespace hangman
                     Console.ReadKey();
                 }
             }
-            GuessCompare(guess, word);
+            GuessCompare(guess, wordToGuess);
 
-            wordToGuess = "Sommar".ToUpper();
+            //wordToGuess = "Sommar".ToUpper();
             guessedWord = "------";
             RunGame();
         }
