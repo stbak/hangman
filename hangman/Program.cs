@@ -6,14 +6,13 @@ namespace hangman
     {
         static void Main(string[] args)
         {
-            char guess = 'o';
+            
+            char guess = 'r';
             string word = "Sommar";
             Console.WriteLine();
             GuessCompare(guess, word);
             WriteHangman();
         }
-
-
 
 
 
