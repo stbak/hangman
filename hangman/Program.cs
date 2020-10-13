@@ -1,71 +1,78 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace hangman
 {
     class Program
     {
 
-        static char[] guesses = new char[10];
-        static char[] outputWord;
-        static char guess;
-        static string guessedChars;
+        static string wordToGuess;
+        static string guessedWord;
+        static List<char> guesses = new List<char>();
+        static int guessesLeft = 5;
+
         static void Main(string[] args)
         {
-            string word = GenerateRandomWord.RandomWord();
-            Console.WriteLine("Word: " + word);
-            
-            
-            do
+            char guess = 'o';
+            string word = "Sommar";
+            Console.WriteLine();
+            GuessCompare(guess, word);
+
+            wordToGuess = "Sommar".ToUpper();
+            guessedWord = "------";
+            RunGame();
+        }
+
+
+        static void RunGame()
+        {
+            while (guessedWord != wordToGuess && guessesLeft > 0)
             {
-                Console.Write("Guess a character: ");
-                guess = (char)Console.Read();
-                if (validateInput(guess, guesses) == true)
+                DisplayHangmanGame();
+                string input = Console.ReadLine().ToUpper();
+                char guess = input[0];
+
+                if (false) //!ValidInput(input))
                 {
-                    break;
+                    WriteMessage("Invalid guess", false);
                 }
-                else {
-                    Console.WriteLine("This is not a valid guess, try again: ");
-                    
+                else if (guesses.Contains(guess))
+                {
+                    WriteMessage($"You have already guessed '{guess}'", false);
                 }
-            } while (true);
+                else
+                {
+                    guesses.Add(guess);
 
-    {
+                    if (wordToGuess.Contains(guess))
+                    {
+                        WriteMessage("Correct", true);
+                        // Update guessedWord
+                    }
+                    else
+                    {
+                        WriteMessage("Wrong", false);
+                        guessesLeft--;
+                    }
+                }
 
-            }
-            Console.WriteLine(validateInput(guess, guesses)); //just writes out true or false
-            Console.WriteLine(guessedChars.Length);
-            foreach (char c in guessedChars) {
-                Console.Write(c + " ");
+                if (guessesLeft > 0)
+                {
+                    // Wait for user to press any key
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                }
             }
             GuessCompare(guess, word);
-            WriteHangman();
+
+            wordToGuess = "Sommar".ToUpper();
+            guessedWord = "------";
+            RunGame();
         }
 
 
-        static Boolean validateInput(char guess, char[] guesses) {
 
-            
-            bool valid = false;
-            char[] allowedCharacters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö', 'a', 'b', 'c', 'd' , 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'å', 'ä', 'ö' };
-            foreach (char c in allowedCharacters) {
 
-                if (guess == c)
-                {
-                    valid = true;
-                    guessedChars = guessedChars + c;
-                }
-                else {
-                    Console.WriteLine($"You have already guessed on {guess}, try again:");
-                }
-                
-            }
-
-            if (valid == true) { 
-                
-            }
-            return valid;
-        }
-        
 
         static void GuessCompare(char guess, string word)
         {
@@ -90,31 +97,52 @@ namespace hangman
         }
 
 
-        static void WriteHangman()
+        static void DisplayHangmanGame()
         {
             //Console.Clear();
             Console.WriteLine();
-            DrawHangman(1);
+            DrawHangman(5 - guessesLeft);
             Console.WriteLine();
-            Console.WriteLine($" MAURITZ");
+            Console.WriteLine($" M--RITZ");
             Console.WriteLine();
             Console.WriteLine($" A S I K B");
             Console.WriteLine();
             Console.WriteLine($" Guesses left: 6");
+            if (guessesLeft > 0)
+            {
+                Console.WriteLine();
+                Console.Write($" Your guess: ");
+            }
+        }
+
+        static void WriteMessage(string message, bool isGood)
+        {
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" You won!");
+            if (isGood)
+                Console.ForegroundColor = ConsoleColor.Green;
+            else
+                Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" " + message);
             Console.ResetColor();
         }
 
-        static void DrawHangman(int image)
+        static void DrawHangman(int numberOfInvalidGuesses)
         {
-            switch (image)
+            switch (numberOfInvalidGuesses)
             {
-                case 1:
+                case 0:
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("       |");
+                    Console.WriteLine("       |");
+                    Console.WriteLine("       |");
+                    Console.WriteLine("       |");
+                    Console.WriteLine(" =========");
+                    break;
+                case 1:
+                    Console.WriteLine("   +---+");
+                    Console.WriteLine("   |   |");
+                    Console.WriteLine("   O   |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
@@ -124,7 +152,7 @@ namespace hangman
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
-                    Console.WriteLine("       |");
+                    Console.WriteLine("   |   |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine(" =========");
@@ -133,7 +161,7 @@ namespace hangman
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
-                    Console.WriteLine("   |   |");
+                    Console.WriteLine("  /|   |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine(" =========");
@@ -142,21 +170,12 @@ namespace hangman
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
-                    Console.WriteLine("  /|   |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 5:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
                     Console.WriteLine("  /|\\  |");
                     Console.WriteLine("  /    |");
                     Console.WriteLine("       |");
                     Console.WriteLine(" =========");
                     break;
-                case 6:
+                case 5:
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
