@@ -16,7 +16,7 @@ namespace hangman
           
            Separera GUI med spelmotorn 
           
-           Hangman - motorn (innehåller ingen gui)*-6+99
+           Hangman - motorn (innehåller ingen gui)
 
            Gui
 
@@ -81,8 +81,9 @@ namespace hangman
                 }
 
                 WaitForUserToContinue();
-                EndGame();
             }
+
+            EndGame();
         }
 
 
@@ -112,7 +113,7 @@ namespace hangman
             if (guessesLeft > 0)
             {
                 // Wait for user to press any key
-                Console.WriteLine("\n\nPress any key to continue...");
+                Console.WriteLine("\nPress any key to continue...");
                 Console.ReadKey();
             }
         }
@@ -163,7 +164,6 @@ namespace hangman
                 DisplayIncorrectMessage("You lost!");
             else
                 DisplayCorrectMessage("You won!");
-
         }
 
         static void DisplayCorrectMessage(string message)
@@ -172,6 +172,9 @@ namespace hangman
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" " + message);
             Console.ResetColor();
+            Console.WriteLine();
+            //Console.Beep(500, 200);
+            //Console.Beep(800, 400);
         }
 
         static void DisplayIncorrectMessage(string message)
@@ -180,6 +183,9 @@ namespace hangman
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" " + message);
             Console.ResetColor();
+            Console.WriteLine();
+            //Console.Beep(800, 200);
+            //Console.Beep(500, 400);
         }
 
         static void DrawHangman(int numberOfInvalidGuesses)
