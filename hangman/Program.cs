@@ -9,7 +9,7 @@ namespace hangman
         static string wordToGuess;
         static string guessedWord;
         static List<char> guesses = new List<char>();
-        static int guessesLeft = 5;
+        static int guessesLeft = 6;
 
         static void Main(string[] args)
         {
@@ -105,7 +105,7 @@ namespace hangman
             Console.Clear();
             Console.WriteLine();
 
-            DrawHangman(5 - guessesLeft);
+            DrawHangman(6 - guessesLeft);
 
             Console.WriteLine();
             Console.WriteLine(" " + guessedWord);
@@ -142,7 +142,7 @@ namespace hangman
             {
                 case 0:
                     Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
+                    Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
@@ -152,7 +152,7 @@ namespace hangman
                 case 1:
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
+                    Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
@@ -162,7 +162,7 @@ namespace hangman
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
-                    Console.WriteLine("   |   |");
+                    Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine(" =========");
@@ -171,7 +171,7 @@ namespace hangman
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
-                    Console.WriteLine("  /|   |");
+                    Console.WriteLine("   |   |");
                     Console.WriteLine("       |");
                     Console.WriteLine("       |");
                     Console.WriteLine(" =========");
@@ -180,12 +180,21 @@ namespace hangman
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
+                    Console.WriteLine("  /|   |");
+                    Console.WriteLine("       |");
+                    Console.WriteLine("       |");
+                    Console.WriteLine(" =========");
+                    break;
+                case 5:
+                    Console.WriteLine("   +---+");
+                    Console.WriteLine("   |   |");
+                    Console.WriteLine("   O   |");
                     Console.WriteLine("  /|\\  |");
                     Console.WriteLine("  /    |");
                     Console.WriteLine("       |");
                     Console.WriteLine(" =========");
                     break;
-                case 5:
+                case 6:
                     Console.WriteLine("   +---+");
                     Console.WriteLine("   |   |");
                     Console.WriteLine("   O   |");
