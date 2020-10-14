@@ -24,7 +24,7 @@ namespace Hangman.Core
             return _guessedWord.ToString();
         }
 
-        public int GuessesLeft()
+        public int GetGuessesLeft()
         {
             return _guessesLeft;
         }
@@ -32,6 +32,11 @@ namespace Hangman.Core
         public HashSet<char> GetGuesses()
         {
             return _guesses;
+        }
+
+        public bool GameEnded()
+        {
+            return _guessedWord.ToString() == _wordToGuess || _guessesLeft == 0;
         }
 
         public GuessResult Guess(string input)
