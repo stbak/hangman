@@ -35,7 +35,7 @@ namespace Hangman.Core.Test
             Assert.AreEqual(GuessResult.InvalidGuess, result);
 
             result = h.Guess(".");
-            Assert.AreEqual(GuessResult.InvalidGuess, result);s
+            Assert.AreEqual(GuessResult.InvalidGuess, result);
 
         }
         [TestMethod]
