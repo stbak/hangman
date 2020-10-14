@@ -34,14 +34,12 @@ namespace Hangman.App
         {
             SplashScreen.Run();
             
-            string word = GenerateRandomWord.RandomWord();
-            Console.WriteLine("Word: " + word);
+            string wordToGuess = GenerateRandomWord.RandomWord();
+            Console.WriteLine("Word: " + wordToGuess);
 
             // Wait for user to press any key
             Console.WriteLine("\nPress any key to start the game...");
             Console.ReadKey();
-
-            string wordToGuess = word.ToUpper();
 
             var hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
 
@@ -94,7 +92,7 @@ namespace Hangman.App
             // Ask user to enter a guess
             Console.WriteLine();
             Console.Write($" Your guess: ");
-            return Console.ReadLine().ToUpper();
+            return Console.ReadLine();
         }
 
         static private void WaitForUserToContinue()
