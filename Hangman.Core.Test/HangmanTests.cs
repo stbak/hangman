@@ -35,7 +35,20 @@ namespace Hangman.Core.Test
             Assert.AreEqual(GuessResult.InvalidGuess, result);
 
             result = h.Guess(".");
-            Assert.AreEqual(GuessResult.InvalidGuess, result);
+            Assert.AreEqual(GuessResult.InvalidGuess, result);s
+
+        }
+        [TestMethod]
+        public void guess_should_be_AlreadyGuessed()
+        {
+            //only to add the letter M before to the Hashmap
+            var h = new Core.Hangman("SOMMAR", 6);
+            GuessResult result = h.Guess("M");
+            Assert.AreEqual(GuessResult.CorrectGuess, result);
+
+            //the actual "AlreadyGuessed test"
+            result = h.Guess("M");
+            Assert.AreEqual(GuessResult.AlreadyGuessed, result);
 
         }
     }
