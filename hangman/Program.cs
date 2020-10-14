@@ -8,10 +8,7 @@ namespace Hangman.App
     class Program
     {
 
-        static string wordToGuess;
-        static StringBuilder guessedWord = new StringBuilder();
-        static List<char> guesses = new List<char>(); // todo: tips "Hash<char>"
-        static int guessesLeft = 6;
+        static int numberOfGuesses = 6;
 
         /* todo: större
           
@@ -46,10 +43,9 @@ namespace Hangman.App
             Console.WriteLine("\nPress any key to start the game...");
             Console.ReadKey();
 
-            wordToGuess = word.ToUpper();
-            guessedWord.Append('-', wordToGuess.Length);
+            string wordToGuess = word.ToUpper();
 
-            var hangman = new Core.Hangman(wordToGuess, guessesLeft);
+            var hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
 
             RunGame(hangman);
         }
@@ -60,7 +56,7 @@ namespace Hangman.App
         static void RunGame(Core.Hangman hangman)
         {
 
-            while (guessedWord.ToString() != wordToGuess && guessesLeft > 0) // todo: ev metod
+            while (!hangman.GameEnded())
             {
                 DisplayHangmanGame(hangman);
                 string input = GetGuessFromUser();
@@ -83,11 +79,15 @@ namespace Hangman.App
                         break;
                 }
 
-                WaitForUserToContinue();
+                if (!hangman.GameEnded())
+                    WaitForUserToContinue();
             }
 
             DisplayHangmanGame(hangman);
-            EndGame();
+            if (hangman.GetGuessesLeft() == 0)
+                DisplayIncorrectMessage("You lost!");
+            else
+                DisplayCorrectMessage("You won!");
         }
 
 
@@ -99,38 +99,12 @@ namespace Hangman.App
             return Console.ReadLine().ToUpper();
         }
 
-        static bool ValidInput(string input)
-        {
-            if (input.Length < 1 || input.Length > 1)
-            {
-                return false;
-            }
-            if (ValidateInputChar.IsInputOk(input[0]))
-            {
-                return true;
-            }
-            return false;
-        }
-
         static void WaitForUserToContinue()
         {
-            if (guessesLeft > 0)
-            {
-                // Wait for user to press any key
-                Console.WriteLine("\nPress any key to continue...");
-                Console.ReadKey();
-            }
-        }
-
-        static void AddCorrectGuess(char guess)
-        {
-            for (int i = 0; i < wordToGuess.Length; i++)
-            {
-                if (guess == wordToGuess[i])
-                {
-                    guessedWord[i] = guess;
-                }
-            }
+            // Wait for user to press any key
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
 
         static void DisplayHangmanGame(Core.Hangman hangman)
@@ -140,8 +114,8 @@ namespace Hangman.App
             Console.WriteLine();
 
             // Draw hangman
-            int guessesLeft = hangman.GuessesLeft();
-            DrawHangman(6 - guessesLeft);
+            int guessesLeft = hangman.GetGuessesLeft();
+            DrawHangman(numberOfGuesses - hangman.GetGuessesLeft());
             Console.WriteLine();
 
             // Write word with placeholders
@@ -158,14 +132,6 @@ namespace Hangman.App
 
             // Write number of guesses remaining
             Console.WriteLine($" Guesses left: {guessesLeft}");
-        }
-
-        static void EndGame()
-        {
-            if (guessesLeft == 0)
-                DisplayIncorrectMessage("You lost!");
-            else
-                DisplayCorrectMessage("You won!");
         }
 
         static void DisplayCorrectMessage(string message)
