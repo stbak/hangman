@@ -8,6 +8,7 @@ namespace Hangman.Core.Test
         [TestMethod]
         public void TestMethod1()
         {
+
         }
     }
 }
