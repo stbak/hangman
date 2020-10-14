@@ -38,7 +38,8 @@ namespace Hangman.App
                 emptyStr + "                                  |\n" +
                 emptyStr + "                                  |\n" +
                 emptyStr + "                            =============\n" +
-                emptyStr + "                          =================\n"
+                emptyStr + "                          =================\n" + 
+                emptyStr + "                                                     © Team 5\n\n"
                 );
 
         }
