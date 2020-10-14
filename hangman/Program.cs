@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hangman
+namespace Hangman.App
 {
     class Program
     {
@@ -26,6 +26,8 @@ namespace hangman
          */
         static void Main(string[] args)
         {
+            var hangman = new Core.Hangman();
+
             string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
 
@@ -118,7 +120,6 @@ namespace hangman
             }
         }
 
-
         static void AddCorrectGuess(char guess)
         {
             for (int i = 0; i < wordToGuess.Length; i++)
@@ -129,7 +130,6 @@ namespace hangman
                 }
             }
         }
-
 
         static void DisplayHangmanGame()
         {

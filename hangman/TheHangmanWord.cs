@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace hangman
+namespace Hangman.App
 {
     class TheHangmanWord
     {
