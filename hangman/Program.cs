@@ -24,6 +24,16 @@ namespace Hangman.App
            var h = new Hangman()
            h.Run();
           
+           
+        - Splash screen (Stefan)
+        - Play again?
+        - Städa Hangman.App (Björn)
+        - Skriva test cases (Maja)
+        - Snygga till Guess() (Björn)
+        - Hantera Retur från user
+        - Se över namngivning
+        - Ta bort ValidateInputChar.cs
+
          */
         static void Main(string[] args)
         {
