@@ -1,14 +1,12 @@
 ﻿using Hangman.Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Hangman.App
 {
     class Program
     {
 
-        static int numberOfGuesses = 6;
+        static private int numberOfGuesses = 6;
 
         /* todo: större
           
@@ -24,12 +22,12 @@ namespace Hangman.App
            
         - Splash screen (Stefan)
         - Play again?
-        - Städa Hangman.App (Björn)
+        - Städa Hangman.App (Björn) Klart
         - Skriva test cases (Maja)
         - Snygga till Guess() (Björn)
-        - Hantera Retur från user
+        - Hantera Retur från user (Björn) Klart
         - Se över namngivning
-        - Ta bort ValidateInputChar.cs
+        - Ta bort ValidateInputChar.cs (Björn) Klart
 
          */
         static void Main(string[] args)
@@ -53,7 +51,7 @@ namespace Hangman.App
         // todo: går det att extrahera metoder ur denna?
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
-        static void RunGame(Core.Hangman hangman)
+        static private void RunGame(Core.Hangman hangman)
         {
 
             while (!hangman.GameEnded())
@@ -91,7 +89,7 @@ namespace Hangman.App
         }
 
 
-        static string GetGuessFromUser()
+        static private string GetGuessFromUser()
         {
             // Ask user to enter a guess
             Console.WriteLine();
@@ -99,7 +97,7 @@ namespace Hangman.App
             return Console.ReadLine().ToUpper();
         }
 
-        static void WaitForUserToContinue()
+        static private void WaitForUserToContinue()
         {
             // Wait for user to press any key
             Console.WriteLine();
@@ -107,7 +105,7 @@ namespace Hangman.App
             Console.ReadKey();
         }
 
-        static void DisplayHangmanGame(Core.Hangman hangman)
+        static private void DisplayHangmanGame(Core.Hangman hangman)
         {
             // Clear console
             Console.Clear();
@@ -134,7 +132,7 @@ namespace Hangman.App
             Console.WriteLine($" Guesses left: {guessesLeft}");
         }
 
-        static void DisplayCorrectMessage(string message)
+        static private void DisplayCorrectMessage(string message)
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -145,7 +143,7 @@ namespace Hangman.App
             //Console.Beep(800, 400);
         }
 
-        static void DisplayIncorrectMessage(string message)
+        static private void DisplayIncorrectMessage(string message)
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
@@ -156,7 +154,7 @@ namespace Hangman.App
             //Console.Beep(500, 400);
         }
 
-        static void DrawHangman(int numberOfInvalidGuesses)
+        static private void DrawHangman(int numberOfInvalidGuesses)
         {
             switch (numberOfInvalidGuesses)
             {
