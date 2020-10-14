@@ -34,6 +34,8 @@ namespace Hangman.App
          */
         static void Main(string[] args)
         {
+            SplashScreen.Run();
+            
             string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
 
