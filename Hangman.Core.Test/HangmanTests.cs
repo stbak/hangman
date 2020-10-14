@@ -41,7 +41,7 @@ namespace Hangman.Core.Test
         [TestMethod]
         public void guess_should_be_AlreadyGuessed()
         {
-            //only to add the letter M before to the Hashmap
+            //only to add the letter M to the Hashmap before the test 
             var h = new Core.Hangman("SOMMAR", 6);
             GuessResult result = h.Guess("M");
             Assert.AreEqual(GuessResult.CorrectGuess, result);
@@ -49,6 +49,13 @@ namespace Hangman.Core.Test
             //the actual "AlreadyGuessed test"
             result = h.Guess("M");
             Assert.AreEqual(GuessResult.AlreadyGuessed, result);
+
+        }
+        [TestMethod]
+        public void number_of_guesses_should_be_zero()
+        {
+            
+ //Det här fixar jag imorgon
 
         }
     }
