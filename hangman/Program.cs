@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hangman.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,8 +27,6 @@ namespace Hangman.App
          */
         static void Main(string[] args)
         {
-            var hangman = new Core.Hangman();
-
             string word = GenerateRandomWord.RandomWord();
             Console.WriteLine("Word: " + word);
 
@@ -37,54 +36,45 @@ namespace Hangman.App
 
             wordToGuess = word.ToUpper();
             guessedWord.Append('-', wordToGuess.Length);
-            RunGame();
+
+            var hangman = new Core.Hangman(wordToGuess, guessesLeft);
+
+            RunGame(hangman);
         }
 
         // todo: går det att extrahera metoder ur denna?
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
-        static void RunGame()
+        static void RunGame(Core.Hangman hangman)
         {
 
             while (guessedWord.ToString() != wordToGuess && guessesLeft > 0) // todo: ev metod
             {
-                DisplayHangmanGame();
+                DisplayHangmanGame(hangman);
                 string input = GetGuessFromUser();
 
-                if (ValidInput(input)) // todo: namngivning
-                {
-                    char guess = input[0];
+                GuessResult result = hangman.Guess(input);
 
-                    // todo: finlir: göra koden smalare
-                    if (guesses.Contains(guess))
-                    {
-                        DisplayIncorrectMessage($"You have already guessed '{guess}'");
-                    }
-                    else
-                    {
-                        // Add guess to guesses
-                        guesses.Add(guess);
-
-                        if (wordToGuess.Contains(guess))
-                        {
-                            DisplayCorrectMessage("Correct");
-                            AddCorrectGuess(guess);
-                        }
-                        else
-                        {
-                            DisplayIncorrectMessage("Wrong");
-                            guessesLeft--;
-                        }
-                    }
-                }
-                else
+                switch (result)
                 {
-                    DisplayIncorrectMessage("Invalid guess");
+                    case GuessResult.AlreadyGuessed:
+                        DisplayIncorrectMessage($"You have already guessed '{input}'");
+                        break;
+                    case GuessResult.CorrectGuess:
+                        DisplayCorrectMessage("Correct");
+                        break;
+                    case GuessResult.IncorrectGuess:
+                        DisplayIncorrectMessage("Wrong");
+                        break;
+                    case GuessResult.InvalidGuess:
+                        DisplayIncorrectMessage("Invalid guess");
+                        break;
                 }
 
                 WaitForUserToContinue();
             }
 
+            DisplayHangmanGame(hangman);
             EndGame();
         }
 
@@ -131,22 +121,23 @@ namespace Hangman.App
             }
         }
 
-        static void DisplayHangmanGame()
+        static void DisplayHangmanGame(Core.Hangman hangman)
         {
             // Clear console
             Console.Clear();
             Console.WriteLine();
 
             // Draw hangman
+            int guessesLeft = hangman.GuessesLeft();
             DrawHangman(6 - guessesLeft);
             Console.WriteLine();
 
             // Write word with placeholders
-            Console.WriteLine(" " + guessedWord);
+            Console.WriteLine(" " + hangman.GetGuessedWord());
             Console.WriteLine();
 
             // Write guessed characters
-            foreach (char c in guesses)
+            foreach (char c in hangman.GetGuesses())
             {
                 Console.Write($" {c}");
             }
@@ -159,7 +150,6 @@ namespace Hangman.App
 
         static void EndGame()
         {
-            DisplayHangmanGame();
             if (guessesLeft == 0)
                 DisplayIncorrectMessage("You lost!");
             else
