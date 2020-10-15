@@ -10,7 +10,7 @@ namespace Hangman.App
     public class GenerateRandomWord
     {
         private string _word;
-        public static void Run()
+        public static void Run()   //Group4Comment: Delete this?
         {
             RandomWord();
         }
@@ -27,12 +27,19 @@ namespace Hangman.App
         public static string RandomWord()
         {
             string[] words = { "Sommar", "Vinter", "Vår", "Höst", "Midsommar", "Påsk", "Pingst", "Julafton", "Nyårsafton", "Allhelgona", "Kanelbulle" };
-            string rndWord = null;
+            
+            /* Comment Group4: Should be possible to just have 2 lines? Create the Random + Return words[random number 0-10]
+            Ex:
+            Random rndGroup4 = new Random();
+            return  words[rndGroup4.Next(0, 10)];
+            */
+             string rndWord = null;
             Random rnd = new Random();
-            double randomNumber = Math.Round(rnd.NextDouble() * 10);
+            double randomNumber = Math.Round(rnd.NextDouble() * 10); //Comment Group4: use int instead of double
             //Console.WriteLine(randomNumber);
             rndWord = words[(int)randomNumber];
             return rndWord;
+            
         }
     }
 }

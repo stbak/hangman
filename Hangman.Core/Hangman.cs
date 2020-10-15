@@ -20,7 +20,7 @@ namespace Hangman.Core
                 numberOfGuesses = 10;
 
             _wordToGuess = wordToGuess.ToUpper();
-            _guessedWord = new StringBuilder().Append('-', wordToGuess.Length);
+            _guessedWord = new StringBuilder().Append('-', wordToGuess.Length); //Comment Group4: It is possible to solve it without this parameter. 
             _guesses = new HashSet<char>();
             _guessesLeft = numberOfGuesses;
         }
@@ -40,7 +40,7 @@ namespace Hangman.Core
         {
             input = input.ToUpper();
 
-            // Check if guessed the whole word
+            // Check if guessed the whole word //Comment Group4: this is not needed? You quit the while loop when endgame = true.. and a character will not be == whole word. CorrectGuess is if _word.contains(input).. 
             if (GuessedCorrectWord(input))
                 return GuessResult.CorrectGuess;
 
@@ -94,7 +94,7 @@ namespace Hangman.Core
             return false;
         }
 
-        private bool GuessedCorrectWord(string input)
+        private bool GuessedCorrectWord(string input) //Comment Group4: Hard to understand if you ever will return true? input from user input.length = 1... how can it ever be == _wordToGuess?
         {
             if (input == _wordToGuess)
             {

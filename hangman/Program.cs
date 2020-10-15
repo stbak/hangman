@@ -173,6 +173,9 @@ namespace Hangman.App
 
         static private void DrawHangman(int numberOfInvalidGuesses)
         {
+
+            //Comment Group4: Perhaps you could create an array or list of string that you feed with the first picture and then just replace current position
+            //BUt it's easier to understand when you do like below :) 
             switch (numberOfInvalidGuesses)
             {
                 case 0:
