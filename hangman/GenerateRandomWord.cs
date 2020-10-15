@@ -10,11 +10,7 @@ namespace Hangman.App
     public class GenerateRandomWord
     {
         private string _word;
-        public static void Run()   //Group4Comment: Delete this?
-        {
-            RandomWord();
-        }
-
+       
         public void SetWord() {
             _word = RandomWord();
         }
