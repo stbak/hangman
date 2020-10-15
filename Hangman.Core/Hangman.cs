@@ -8,31 +8,28 @@ namespace Hangman.Core
     public class Hangman
     {
         private string _wordToGuess;
-        private StringBuilder _guessedWord = new StringBuilder();
-        private HashSet<char> _guesses = new HashSet<char>();
-        private int _guessesLeft = 6;
+        private StringBuilder _guessedWord;
+        private HashSet<char> _guesses;
+        private int _guessesLeft;
 
         public Hangman(string wordToGuess, int numberOfGuesses)
         {
+            if (string.IsNullOrEmpty(wordToGuess))
+                throw new ArgumentException("wordToGuess cannot be null or empty");
+            if (numberOfGuesses < 1)
+                numberOfGuesses = 10;
+
             _wordToGuess = wordToGuess.ToUpper();
-            _guessedWord.Append('-', wordToGuess.Length);
+            _guessedWord = new StringBuilder().Append('-', wordToGuess.Length);
+            _guesses = new HashSet<char>();
             _guessesLeft = numberOfGuesses;
         }
 
-        public string GetGuessedWord()
-        {
-            return _guessedWord.ToString();
-        }
+        public string GuessedWord => _guessedWord.ToString();
 
-        public int GetGuessesLeft()
-        {
-            return _guessesLeft;
-        }
+        public int GuessesLeft => _guessesLeft;
 
-        public HashSet<char> GetGuesses()
-        {
-            return _guesses;
-        }
+        public HashSet<char> Guesses => _guesses;
 
         public bool GameEnded()
         {

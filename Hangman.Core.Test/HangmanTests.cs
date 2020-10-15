@@ -59,7 +59,7 @@ namespace Hangman.Core.Test
             //
             var h = new Core.Hangman("Anyword", 6);
             //Act
-            int result = h.GetGuessesLeft();
+            int result = h.GuessesLeft;
             //Assert
             Assert.AreEqual(6, result);
         }

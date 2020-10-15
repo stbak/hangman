@@ -6,7 +6,7 @@ namespace Hangman.App
     class Program
     {
 
-        static private int numberOfGuesses = 6;
+        static readonly private int numberOfGuesses = 6;
 
         /* todo: större
           
@@ -24,7 +24,7 @@ namespace Hangman.App
         - Play again?
         - Städa Hangman.App (Björn) Klart
         - Skriva test cases (Maja)
-        - Snygga till Guess() (Björn)
+        - Snygga till Guess() (Björn) Klart
         - Hantera Retur från user (Björn) Klart
         - Se över namngivning
         - Ta bort ValidateInputChar.cs (Björn) Klart
@@ -32,25 +32,45 @@ namespace Hangman.App
          */
         static void Main(string[] args)
         {
+            // Display splash screen
             SplashScreen.Run();
-            
-            string wordToGuess = GenerateRandomWord.RandomWord();
-            Console.WriteLine("Word: " + wordToGuess);
 
             // Wait for user to press any key
             Console.WriteLine("\nPress any key to start the game...");
             Console.ReadKey();
 
-            var hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
+            string playAgain;
+            do
+            {
+                RunGame();
 
-            RunGame(hangman);
+                // Ask if user wants to play again
+                Console.Write("Do you want to play again (Y/N)? ");
+                playAgain = Console.ReadLine().ToUpper();
+            } while (playAgain == "Y");
         }
 
         // todo: går det att extrahera metoder ur denna?
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
-        static private void RunGame(Core.Hangman hangman)
+        static private void RunGame()
         {
+            string wordToGuess = GenerateRandomWord.RandomWord();
+
+            Console.WriteLine("\nHint: " + wordToGuess); // Hint during development
+            WaitForUserToContinue();
+
+            // Create an instanse of Hangman, catch any exception
+            Core.Hangman hangman;
+            try
+            {
+                hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\nError: An error occured when trying to start the game.");
+                return;
+            }
 
             while (!hangman.GameEnded())
             {
@@ -62,7 +82,7 @@ namespace Hangman.App
                 switch (result)
                 {
                     case GuessResult.AlreadyGuessed:
-                        DisplayIncorrectMessage($"You have already guessed '{input}'");
+                        DisplayIncorrectMessage($"You have already guessed '{input.ToUpper()}'");
                         break;
                     case GuessResult.CorrectGuess:
                         DisplayCorrectMessage("Correct");
@@ -80,7 +100,7 @@ namespace Hangman.App
             }
 
             DisplayHangmanGame(hangman);
-            if (hangman.GetGuessesLeft() == 0)
+            if (hangman.GuessesLeft == 0)
                 DisplayIncorrectMessage("You lost!");
             else
                 DisplayCorrectMessage("You won!");
@@ -110,16 +130,15 @@ namespace Hangman.App
             Console.WriteLine();
 
             // Draw hangman
-            int guessesLeft = hangman.GetGuessesLeft();
-            DrawHangman(numberOfGuesses - hangman.GetGuessesLeft());
+            DrawHangman(numberOfGuesses - hangman.GuessesLeft);
             Console.WriteLine();
 
             // Write word with placeholders
-            Console.WriteLine(" " + hangman.GetGuessedWord());
+            Console.WriteLine(" " + hangman.GuessedWord);
             Console.WriteLine();
 
             // Write guessed characters
-            foreach (char c in hangman.GetGuesses())
+            foreach (char c in hangman.Guesses)
             {
                 Console.Write($" {c}");
             }
@@ -127,7 +146,7 @@ namespace Hangman.App
             Console.WriteLine();
 
             // Write number of guesses remaining
-            Console.WriteLine($" Guesses left: {guessesLeft}");
+            Console.WriteLine($" Guesses left: {hangman.GuessesLeft}");
         }
 
         static private void DisplayCorrectMessage(string message)
