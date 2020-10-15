@@ -134,11 +134,11 @@ namespace Hangman.App
             Console.WriteLine();
 
             // Write word with placeholders
-            Console.WriteLine(" " + hangman.GuessedWord);
+            Console.WriteLine(" " + hangman.MaskedWordWithCorrectGuesses);
             Console.WriteLine();
 
             // Write guessed characters
-            foreach (char c in hangman.Guesses)
+            foreach (char c in hangman.GuessedCharacters)
             {
                 Console.Write($" {c}");
             }
