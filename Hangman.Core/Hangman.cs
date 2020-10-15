@@ -14,6 +14,11 @@ namespace Hangman.Core
 
         public Hangman(string wordToGuess, int numberOfGuesses)
         {
+            if (string.IsNullOrEmpty(wordToGuess))
+                throw new ArgumentException("wordToGuess cannot be null or empty");
+            if (numberOfGuesses < 1)
+                numberOfGuesses = 10;
+
             _wordToGuess = wordToGuess.ToUpper();
             _guessedWord = new StringBuilder().Append('-', wordToGuess.Length);
             _guesses = new HashSet<char>();
