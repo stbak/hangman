@@ -90,7 +90,7 @@ namespace Hangman.App
             }
 
             DisplayHangmanGame(hangman);
-            if (hangman.GetGuessesLeft() == 0)
+            if (hangman.GuessesLeft == 0)
                 DisplayIncorrectMessage("You lost!");
             else
                 DisplayCorrectMessage("You won!");
@@ -120,16 +120,15 @@ namespace Hangman.App
             Console.WriteLine();
 
             // Draw hangman
-            int guessesLeft = hangman.GetGuessesLeft();
-            DrawHangman(numberOfGuesses - hangman.GetGuessesLeft());
+            DrawHangman(numberOfGuesses - hangman.GuessesLeft);
             Console.WriteLine();
 
             // Write word with placeholders
-            Console.WriteLine(" " + hangman.GetGuessedWord());
+            Console.WriteLine(" " + hangman.GuessedWord);
             Console.WriteLine();
 
             // Write guessed characters
-            foreach (char c in hangman.GetGuesses())
+            foreach (char c in hangman.Guesses)
             {
                 Console.Write($" {c}");
             }
@@ -137,7 +136,7 @@ namespace Hangman.App
             Console.WriteLine();
 
             // Write number of guesses remaining
-            Console.WriteLine($" Guesses left: {guessesLeft}");
+            Console.WriteLine($" Guesses left: {hangman.GuessesLeft}");
         }
 
         static private void DisplayCorrectMessage(string message)
