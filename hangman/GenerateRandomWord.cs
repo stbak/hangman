@@ -12,9 +12,7 @@ namespace Hangman.App
         private string _word;
         public static void Run()
         {
-
             RandomWord();
-        
         }
 
         public void SetWord() {
@@ -32,7 +30,7 @@ namespace Hangman.App
             string rndWord = null;
             Random rnd = new Random();
             double randomNumber = Math.Round(rnd.NextDouble() * 10);
-            Console.WriteLine(randomNumber);
+            //Console.WriteLine(randomNumber);
             rndWord = words[(int)randomNumber];
             return rndWord;
         }
