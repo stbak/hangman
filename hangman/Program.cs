@@ -20,8 +20,8 @@ namespace Hangman.App
            h.Run();
           
            
-        - Splash screen (Stefan)
-        - Play again?
+        - Splash screen (Stefan) Klart
+        - Play again? Klart
         - Städa Hangman.App (Björn) Klart
         - Skriva test cases (Maja)
         - Snygga till Guess() (Björn) Klart

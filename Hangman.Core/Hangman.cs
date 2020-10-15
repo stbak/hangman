@@ -66,6 +66,7 @@ namespace Hangman.Core
             else
             {
                 _guessesLeft--;
+                Console.Beep();
                 return GuessResult.IncorrectGuess;
             }
         }
