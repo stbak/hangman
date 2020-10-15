@@ -21,7 +21,7 @@ namespace Hangman.App
           
            
         - Splash screen (Stefan) Klart
-        - Play again? Klart
+        - Play again? (Björn) Klart
         - Städa Hangman.App (Björn) Klart
         - Skriva test cases (Maja)
         - Snygga till Guess() (Björn) Klart
@@ -167,6 +167,7 @@ namespace Hangman.App
             Console.WriteLine(" " + message);
             Console.ResetColor();
             Console.WriteLine();
+            Console.Beep();
             //Console.Beep(800, 200);
             //Console.Beep(500, 400);
         }
