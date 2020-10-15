@@ -10,12 +10,14 @@ namespace Hangman.App
     {
         public static void Run()
         {
+            //Group4Comment: Perhaps add a comment that you trying to center the picture by adding spaces depending on size screen? Hard to understand
             int startAt = GetStartingPoint("XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX");
             string emptyStr = null;
             for (int i = 0; i < startAt; i++)
             {
-                emptyStr = emptyStr + " ";
+                emptyStr = emptyStr + " ";   //Group4Comment: Can print like this? emptyStr += " ";
             }
+          
 
             
             Console.SetCursorPosition(0, 3);
@@ -42,7 +44,7 @@ namespace Hangman.App
                 emptyStr + "                            =============\n" +
                 emptyStr + "                          =================\n"
                 );
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White; //  //Group4Comment: Also possible to use resetcolor;
         }
 
         private static int GetStartingPoint(string str)
