@@ -6,7 +6,7 @@ namespace Hangman.App
     class Program
     {
 
-        static private int numberOfGuesses = 6;
+        static readonly private int numberOfGuesses = 6;
 
         /* todo: större
           
@@ -24,7 +24,7 @@ namespace Hangman.App
         - Play again?
         - Städa Hangman.App (Björn) Klart
         - Skriva test cases (Maja)
-        - Snygga till Guess() (Björn)
+        - Snygga till Guess() (Björn) Klart
         - Hantera Retur från user (Björn) Klart
         - Se över namngivning
         - Ta bort ValidateInputChar.cs (Björn) Klart
@@ -34,23 +34,24 @@ namespace Hangman.App
         {
             SplashScreen.Run();
             
-            string wordToGuess = GenerateRandomWord.RandomWord();
-            Console.WriteLine("Word: " + wordToGuess);
-
             // Wait for user to press any key
             Console.WriteLine("\nPress any key to start the game...");
             Console.ReadKey();
 
-            var hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
-
-            RunGame(hangman);
+            RunGame();
         }
 
         // todo: går det att extrahera metoder ur denna?
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
-        static private void RunGame(Core.Hangman hangman)
+        static private void RunGame()
         {
+            string wordToGuess = GenerateRandomWord.RandomWord();
+
+            Console.WriteLine("Word: " + wordToGuess); // Hint during development
+            WaitForUserToContinue();
+
+            var hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
 
             while (!hangman.GameEnded())
             {
@@ -62,7 +63,7 @@ namespace Hangman.App
                 switch (result)
                 {
                     case GuessResult.AlreadyGuessed:
-                        DisplayIncorrectMessage($"You have already guessed '{input}'");
+                        DisplayIncorrectMessage($"You have already guessed '{input.ToUpper()}'");
                         break;
                     case GuessResult.CorrectGuess:
                         DisplayCorrectMessage("Correct");
