@@ -51,7 +51,20 @@ namespace Hangman.Core.Test
             Assert.AreEqual(GuessResult.AlreadyGuessed, result);
 
         }
+  
+
         [TestMethod]
+        public void guesses_left_should_be_same_as_passed_into_Game()
+        {
+            //
+            var h = new Core.Hangman("Anyword", 6);
+            //Act
+            int result = h.GetGuessesLeft();
+            //Assert
+            Assert.AreEqual(6, result);
+        }
+
+  [TestMethod]
         public void number_of_guesses_should_be_zero()
         {
             

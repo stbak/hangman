@@ -14,7 +14,7 @@ namespace Hangman.Core
 
         public Hangman(string wordToGuess, int numberOfGuesses)
         {
-            _wordToGuess = wordToGuess;
+            _wordToGuess = wordToGuess.ToUpper();
             _guessedWord.Append('-', wordToGuess.Length);
             _guessesLeft = numberOfGuesses;
         }
@@ -41,49 +41,36 @@ namespace Hangman.Core
 
         public GuessResult Guess(string input)
         {
-            if (ValidInput(input)) // todo: namngivning
+            input = input.ToUpper();
+
+            // Check if guessed the whole word
+            if (GuessedCorrectWord(input))
+                return GuessResult.CorrectGuess;
+
+            // Validate input
+            if (!ValidInput(input))
+                return GuessResult.InvalidGuess;
+
+            char guess = input[0];
+
+            // Check if already guessed
+            if (_guesses.Contains(guess))
+                return GuessResult.AlreadyGuessed;
+
+            // Add guess to guesses
+            _guesses.Add(guess);
+
+            // Check if guess was correct
+            if (_wordToGuess.Contains(guess))
             {
-                char guess = input[0];
-
-                // todo: finlir: göra koden smalare
-                if (_guesses.Contains(guess))
-                {
-                    return GuessResult.AlreadyGuessed;
-                }
-                else
-                {
-                    // Add guess to guesses
-                    _guesses.Add(guess);
-
-                    if (_wordToGuess.Contains(guess.ToString()))
-                    {
-                        AddCorrectGuess(guess);
-                        return GuessResult.CorrectGuess;
-                    }
-                    else
-                    {
-                        _guessesLeft--;
-                        return GuessResult.IncorrectGuess;
-                    }
-                }
+                AddCorrectGuess(guess);
+                return GuessResult.CorrectGuess;
             }
             else
             {
-                return GuessResult.InvalidGuess;
+                _guessesLeft--;
+                return GuessResult.IncorrectGuess;
             }
-        }
-
-        private bool ValidInput(string input)
-        {
-            if (input.Length < 1 || input.Length > 1)
-            {
-                return false;
-            }
-            if (IsInputOk(input[0]))
-            {
-                return true;
-            }
-            return false;
         }
 
         private void AddCorrectGuess(char guess)
@@ -97,21 +84,27 @@ namespace Hangman.Core
             }
         }
 
-        private Boolean IsInputOk(char guess)
+        private bool ValidInput(string input)
         {
+            string allowedCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
 
-            bool valid = false;
-            char[] allowedCharacters = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö' }; //, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'å', 'ä', 'ö' };
-            foreach (char c in allowedCharacters)
+            if (input.Length < 1 || input.Length > 1)
+                return false;
+
+            if (allowedCharacters.Contains(input[0]))
+                return true;
+
+            return false;
+        }
+
+        private bool GuessedCorrectWord(string input)
+        {
+            if (input == _wordToGuess)
             {
-
-                if (guess == c)
-                {
-                    valid = true;
-                }
+                _guessedWord = new StringBuilder(_wordToGuess);
+                return true;
             }
-
-            return valid;
+            return false;
         }
     }
 }

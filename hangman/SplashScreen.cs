@@ -17,7 +17,9 @@ namespace Hangman.App
                 emptyStr = emptyStr + " ";
             }
 
+            
             Console.SetCursorPosition(0, 3);
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("" +
                 emptyStr + "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX\n" +
                 emptyStr + "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX\n" +
@@ -38,10 +40,9 @@ namespace Hangman.App
                 emptyStr + "                                  |\n" +
                 emptyStr + "                                  |\n" +
                 emptyStr + "                            =============\n" +
-                emptyStr + "                          =================\n" + 
-                emptyStr + "                                                     © Team 5\n\n"
+                emptyStr + "                          =================\n"
                 );
-
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static int GetStartingPoint(string str)
