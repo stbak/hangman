@@ -10,54 +10,9 @@ namespace Hangman.App
     {
         public static void Run()
         {
-            //Group 5: Added an explaining comment. Group4Comment: Perhaps add a comment that you trying to center the picture by adding spaces depending on size screen? Hard to understand
             int startAt = GetStartingPoint("XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX"); //This will center everything on SplashScreen!
-            string emptyStr = null;
-            for (int i = 0; i < startAt; i++)
-            {
-                emptyStr += " ";   //Group 5: changed according to comment. Group4Comment: Can print like this? emptyStr += " ";
-            }
-          
-
-            Console.SetCursorPosition(0, 3);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-
-            /*
-            OO: A suggestion:
-
-                var graphics = new[] { 
-                    "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX",
-                    "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX",
-                    "XX   XX  XX   XX  XXX  XX  XX       XX X XX  XX   XX  XXX  XX"
-                }
-
-                DisplayGraphics(graphics); // this method will loop througt "graphics" and add a space before each line
-
-            */
-
-            Console.Write("" +
-                emptyStr + "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX\n" +
-                emptyStr + "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX\n" +
-                emptyStr + "XX   XX  XX   XX  XXX  XX  XX       XX X XX  XX   XX  XXX  XX\n" +
-                emptyStr + "XXXXXXX  XXXXXXX  XX X XX  XX  XXX  XX X XX  XXXXXXX  XX X XX\n" +
-                emptyStr + "XX   XX  XX   XX  XX  XXX  XX   XX  XX   XX  XX   XX  XX  XXX\n" +
-                emptyStr + "XX   XX  XX   XX  XX   XX   XX XX   XX   XX  XX   XX  XX   XX\n" +
-                emptyStr + "XX   XX  XX   XX  XX    X    XXX    XX   XX  XX   XX  XX    X\n" +
-                emptyStr + "_____________________________________________________________\n" +
-                emptyStr + "\n" +
-                emptyStr + "                         __________\n" +
-                emptyStr + "                         |      \\ |\n" +
-                emptyStr + "                         O       \\|\n" +
-                emptyStr + "                        /|\\       |\n" +
-                emptyStr + "                         |        |\n" +
-                emptyStr + "                        / \\       |\n" +
-                emptyStr + "                       /   \\      |\n" +
-                emptyStr + "                                  |\n" +
-                emptyStr + "                                  |\n" +
-                emptyStr + "                            =============\n" +
-                emptyStr + "                          =================\n"
-                );
-            Console.ResetColor(); //Group 5 - changed according to comment.  //Group4Comment: Also possible to use resetcolor;
+            string emptyStr = new string(' ', startAt-1);
+            DisplayGraphics(emptyStr);
         }
 
         // OO: Nice :)
@@ -66,6 +21,42 @@ namespace Hangman.App
             int windowWidth = Console.WindowWidth;
             int strLen = str.Length;
             return (windowWidth / 2) - (strLen / 2);
+        }
+
+        private static void DisplayGraphics(string spaces)
+        {
+            String[] graphics = new String[] { 
+                spaces + "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX\n",
+                spaces + "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX\n",
+                spaces + "XX   XX  XX   XX  XXX  XX  XX       XX X XX  XX   XX  XXX  XX\n",
+                spaces + "XXXXXXX  XXXXXXX  XX X XX  XX  XXX  XX X XX  XXXXXXX  XX X XX\n",
+                spaces + "XX   XX  XX   XX  XX  XXX  XX   XX  XX   XX  XX   XX  XX  XXX\n",
+                spaces + "XX   XX  XX   XX  XX   XX   XX XX   XX   XX  XX   XX  XX   XX\n",
+                spaces + "XX   XX  XX   XX  XX    X    XXX    XX   XX  XX   XX  XX    X\n",
+                spaces + "_____________________________________________________________\n",
+                spaces + "\n",
+                spaces + "                         __________\n",
+                spaces + "                         |      \\ |\n",
+                spaces + "                         O       \\|\n",
+                spaces + "                        /|\\       |\n",
+                spaces + "                         |        |\n",
+                spaces + "                        / \\       |\n",
+                spaces + "                       /   \\      |\n",
+                spaces + "                                  |\n",
+                spaces + "                                  |\n",
+                spaces + "                            =============\n",
+                spaces + "                          =================\n"
+            };
+
+            //Output
+            Console.SetCursorPosition(0, 3);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            foreach (string s in graphics)
+            {
+                Console.Write(s);
+            }
+            Console.ResetColor();
+
         }
 
 
