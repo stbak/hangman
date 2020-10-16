@@ -10,9 +10,7 @@ namespace Hangman.App
     {
         public static void Run()
         {
-            int startAt = GetStartingPoint("XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX"); //This will center everything on SplashScreen!
-            string emptyStr = new string(' ', startAt-1);
-            DisplayGraphics(emptyStr);
+            DisplayGraphics();
         }
 
         // OO: Nice :)
@@ -23,8 +21,11 @@ namespace Hangman.App
             return (windowWidth / 2) - (strLen / 2);
         }
 
-        private static void DisplayGraphics(string spaces)
+        private static void DisplayGraphics()
         {
+            int startAt = GetStartingPoint("XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX"); //This will center everything on SplashScreen!
+            string spaces = new string(' ', startAt - 1);
+
             String[] graphics = new String[] { 
                 spaces + "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX\n",
                 spaces + "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX\n",
