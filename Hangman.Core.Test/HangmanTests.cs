@@ -6,7 +6,8 @@ namespace Hangman.Core.Test
     [TestClass]
     public class HangmanTests
     {
-
+        // OO: Well done :)
+        // OO: Continue and test the other public stuff like MaskedWordWithCorrectGuesses, GuessesLeft, GuessedCharacters, GameEnded
 
         [TestMethod]
         public void guess_should_be_incorrect()

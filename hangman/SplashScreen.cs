@@ -19,9 +19,22 @@ namespace Hangman.App
             }
           
 
-            
             Console.SetCursorPosition(0, 3);
             Console.ForegroundColor = ConsoleColor.Yellow;
+
+            /*
+            OO: A suggestion:
+
+                var graphics = new[] { 
+                    "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX",
+                    "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX",
+                    "XX   XX  XX   XX  XXX  XX  XX       XX X XX  XX   XX  XXX  XX"
+                }
+
+                DisplayGraphics(graphics); // this method will loop througt "graphics" and add a space before each line
+
+            */
+
             Console.Write("" +
                 emptyStr + "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX\n" +
                 emptyStr + "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX\n" +
@@ -47,6 +60,7 @@ namespace Hangman.App
             Console.ResetColor(); //Group 5 - changed according to comment.  //Group4Comment: Also possible to use resetcolor;
         }
 
+        // OO: Nice :)
         private static int GetStartingPoint(string str)
         {
             int windowWidth = Console.WindowWidth;

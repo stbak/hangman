@@ -53,6 +53,8 @@ namespace Hangman.App
         // todo: går det att extrahera metoder ur denna?
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
+
+        // OO: This method starts to look really nice :)
         static private void RunGame()
         {
             string wordToGuess = GenerateRandomWord.RandomWord();
@@ -62,6 +64,8 @@ namespace Hangman.App
 
             // Create an instanse of Hangman, catch any exception
             Core.Hangman hangman;
+
+            // OO: Move this try-catch-block to "Main" or don't use try-catch at all
             try
             {
                 hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
@@ -174,6 +178,7 @@ namespace Hangman.App
 
         static private void DrawHangman(int numberOfInvalidGuesses)
         {
+            // OO: Just for fun you can create a Dictionary<int, string[]> that contain the "pictures". Then you don't need the switch-case
 
             //Comment Group4: Perhaps you could create an array or list of string that you feed with the first picture and then just replace current position
             //BUt it's easier to understand when you do like below :) 
