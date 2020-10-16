@@ -1,5 +1,6 @@
 ﻿using Hangman.Core;
 using System;
+using System.Collections.Generic;
 
 namespace Hangman.App
 {
@@ -8,28 +9,6 @@ namespace Hangman.App
 
         static readonly private int numberOfGuesses = 6;
 
-        /* todo: större
-          
-           Separera GUI med spelmotorn 
-          
-           Hangman - motorn (innehåller ingen gui)
-
-           Gui
-
-           var h = new Hangman()
-           h.Run();
-          
-           
-        - Splash screen (Stefan) Klart
-        - Play again? (Björn) Klart
-        - Städa Hangman.App (Björn) Klart
-        - Skriva test cases (Maja)
-        - Snygga till Guess() (Björn) Klart
-        - Hantera Retur från user (Björn) Klart
-        - Se över namngivning
-        - Ta bort ValidateInputChar.cs (Björn) Klart
-
-         */
         static void Main(string[] args)
         {
             // Display splash screen
@@ -53,7 +32,6 @@ namespace Hangman.App
         // todo: går det att extrahera metoder ur denna?
         // todo: metoder 1-7 långa
         // todo: metoderna ska beskriva sig själva
-
         // OO: This method starts to look really nice :)
         static private void RunGame()
         {
@@ -178,78 +156,92 @@ namespace Hangman.App
 
         static private void DrawHangman(int numberOfInvalidGuesses)
         {
-            // OO: Just for fun you can create a Dictionary<int, string[]> that contain the "pictures". Then you don't need the switch-case
+            var hangmanImage = HangmanImage(numberOfInvalidGuesses);
 
-            //Comment Group4: Perhaps you could create an array or list of string that you feed with the first picture and then just replace current position
-            //BUt it's easier to understand when you do like below :) 
-            switch (numberOfInvalidGuesses)
+            foreach (var row in hangmanImage)
             {
-                case 0:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 1:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 2:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 3:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 4:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
-                    Console.WriteLine("  /|   |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 5:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
-                    Console.WriteLine("  /|\\  |");
-                    Console.WriteLine("  /    |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
-                case 6:
-                    Console.WriteLine("   +---+");
-                    Console.WriteLine("   |   |");
-                    Console.WriteLine("   O   |");
-                    Console.WriteLine("  /|\\  |");
-                    Console.WriteLine("  / \\  |");
-                    Console.WriteLine("       |");
-                    Console.WriteLine(" =========");
-                    break;
+                Console.WriteLine(" " + row);
             }
         }
 
+        private static string[] HangmanImage(int numberOfInvalidGuesses)
+        {
+            var hangmanImages = new List<string[]>()
+            {
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "      |  ",
+                    "      |  ",
+                    "      |  ",
+                    "      |  ",
+                    "========="
+                },
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "  O   |  ",
+                    "      |  ",
+                    "      |  ",
+                    "      |  ",
+                    "========="
+                },
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "  O   |  ",
+                    "  |   |  ",
+                    "      |  ",
+                    "      |  ",
+                    "========="
+                },
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "  O   |  ",
+                    " /|   |  ",
+                    "      |  ",
+                    "      |  ",
+                    "========="
+                },
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "  O   |  ",
+                    " /|\\  |  ",
+                    "      |  ",
+                    "      |  ",
+                    "========="
+                },
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "  O   |  ",
+                    " /|\\  |  ",
+                    " /    |  ",
+                    "      |  ",
+                    "========="
+                },
+                new[]
+                {
+                    "  +---+  ",
+                    "  |   |  ",
+                    "  O   |  ",
+                    " /|\\  |  ",
+                    " / \\  |  ",
+                    "      |  ",
+                    "========="
+                }
+            };
+
+            return hangmanImages[numberOfInvalidGuesses];
+        }
     }
 
 }

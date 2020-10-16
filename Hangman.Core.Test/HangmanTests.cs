@@ -75,7 +75,7 @@ namespace Hangman.Core.Test
         [ExpectedException(typeof(ArgumentException))]
         public void calling_constructor_without_wordToGuess_should_throw_exception()
         {
-            var h = new Hangman("", 6);
+            var h = new Hangman(" ", 6);
         }
 
         [TestMethod]
