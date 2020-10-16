@@ -23,38 +23,40 @@ namespace Hangman.App
 
         private static void DisplayGraphics()
         {
-            int startAt = GetStartingPoint("XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX"); //This will center everything on SplashScreen!
-            string spaces = new string(' ', startAt - 1);
 
-            String[] graphics = new String[] { 
-                spaces + "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX\n",
-                spaces + "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX\n",
-                spaces + "XX   XX  XX   XX  XXX  XX  XX       XX X XX  XX   XX  XXX  XX\n",
-                spaces + "XXXXXXX  XXXXXXX  XX X XX  XX  XXX  XX X XX  XXXXXXX  XX X XX\n",
-                spaces + "XX   XX  XX   XX  XX  XXX  XX   XX  XX   XX  XX   XX  XX  XXX\n",
-                spaces + "XX   XX  XX   XX  XX   XX   XX XX   XX   XX  XX   XX  XX   XX\n",
-                spaces + "XX   XX  XX   XX  XX    X    XXX    XX   XX  XX   XX  XX    X\n",
-                spaces + "_____________________________________________________________\n",
-                spaces + "\n",
-                spaces + "                         __________\n",
-                spaces + "                         |      \\ |\n",
-                spaces + "                         O       \\|\n",
-                spaces + "                        /|\\       |\n",
-                spaces + "                         |        |\n",
-                spaces + "                        / \\       |\n",
-                spaces + "                       /   \\      |\n",
-                spaces + "                                  |\n",
-                spaces + "                                  |\n",
-                spaces + "                            =============\n",
-                spaces + "                          =================\n"
+            var graphics = new [] { 
+                "XX   XX    XXX    X    XX    XXX    XX   XX    XXX    X    XX",
+                "XX   XX   XX XX   XX   XX   XX XX   XXX XXX   XX XX   XX   XX",
+                "XX   XX  XX   XX  XXX  XX  XX       XX X XX  XX   XX  XXX  XX",
+                "XXXXXXX  XXXXXXX  XX X XX  XX  XXX  XX X XX  XXXXXXX  XX X XX",
+                "XX   XX  XX   XX  XX  XXX  XX   XX  XX   XX  XX   XX  XX  XXX",
+                "XX   XX  XX   XX  XX   XX   XX XX   XX   XX  XX   XX  XX   XX",
+                "XX   XX  XX   XX  XX    X    XXX    XX   XX  XX   XX  XX    X",
+                "_____________________________________________________________",
+                "",
+                "                         __________",
+                "                         |      \\ |",
+                "                         O       \\|",
+                "                        /|\\       |",
+                "                         |        |",
+                "                        / \\       |",
+                "                       /   \\      |",
+                "                                  |",
+                "                                  |",
+                "                            =============",
+                "                          ================="
             };
+
+            //int startAt = GetStartingPoint(graphics[0]); //This will center everything on SplashScreen!
+            string spaces = new string(' ', GetStartingPoint(graphics[0]) - 1);
+
 
             //Output
             Console.SetCursorPosition(0, 3);
             Console.ForegroundColor = ConsoleColor.Yellow;
             foreach (string s in graphics)
             {
-                Console.Write(s);
+                Console.WriteLine(spaces + s);
             }
             Console.ResetColor();
 
