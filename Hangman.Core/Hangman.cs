@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Hangman.Core
 {
@@ -58,7 +59,7 @@ namespace Hangman.Core
             }
 
             // Validate that input is one valid character
-            if (!IsGuessOneValidCharacter(input))
+            if (!IsGuessOneValidCharacter_Regex(input))
                 return GuessResult.InvalidGuess;
 
             char guess = input[0];
@@ -107,6 +108,11 @@ namespace Hangman.Core
                 return true;
 
             return false;
+        }
+
+        private bool IsGuessOneValidCharacter_Regex(string input)
+        {
+            return Regex.IsMatch(input, @"^[A-ZÅÄÖ]$");
         }
 
         private bool GuessedCorrectWord(string input)

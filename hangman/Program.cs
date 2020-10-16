@@ -50,7 +50,7 @@ namespace Hangman.App
             Console.WriteLine("\nHint: " + wordToGuess); // Hint during development
             WaitForUserToContinue();
 
-            // Create an instanse of Hangman, catch any exception
+            // Create an instanse of Hangman
             Core.Hangman hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
 
             while (!hangman.GameEnded())
