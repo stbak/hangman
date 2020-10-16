@@ -47,9 +47,7 @@ namespace Hangman.App
                 "                          ================="
             };
 
-            //int startAt = GetStartingPoint(graphics[0]); //This will center everything on SplashScreen!
             string spaces = new string(' ', GetStartingPoint(graphics[0]) - 1);
-
 
             //Output
             Console.SetCursorPosition(0, 3);
