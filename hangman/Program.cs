@@ -1,6 +1,7 @@
 ﻿using Hangman.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Hangman.App
 {
@@ -156,10 +157,7 @@ namespace Hangman.App
         {
             var hangmanImage = HangmanImage(numberOfInvalidGuesses);
 
-            foreach (var row in hangmanImage)
-            {
-                Console.WriteLine(" " + row);
-            }
+            hangmanImage.ToList().ForEach(row => Console.WriteLine(" " + row));
         }
 
         private static string[] HangmanImage(int numberOfInvalidGuesses)
