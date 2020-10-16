@@ -11,22 +11,31 @@ namespace Hangman.App
 
         static void Main(string[] args)
         {
-            // Display splash screen
-            SplashScreen.Run();
-
-            // Wait for user to press any key
-            Console.WriteLine("\nPress any key to start the game...");
-            Console.ReadKey();
-
-            string playAgain;
-            do
+            // OO: Move this try-catch-block to "Main" or don't use try-catch at all
+            try
             {
-                RunGame();
+                // Display splash screen
+                SplashScreen.Run();
 
-                // Ask if user wants to play again
-                Console.Write("Do you want to play again (Y/N)? ");
-                playAgain = Console.ReadLine().ToUpper();
-            } while (playAgain == "Y");
+                // Wait for user to press any key
+                Console.WriteLine("\nPress any key to start the game...");
+                Console.ReadKey();
+
+                string playAgain;
+                do
+                {
+                    RunGame();
+
+                    // Ask if user wants to play again
+                    Console.Write("Do you want to play again (Y/N)? ");
+                    playAgain = Console.ReadLine().ToUpper();
+                } while (playAgain == "Y");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\nError: An error occured when trying to run the game.");
+                return;
+            }
         }
 
         // todo: går det att extrahera metoder ur denna?
@@ -41,18 +50,7 @@ namespace Hangman.App
             WaitForUserToContinue();
 
             // Create an instanse of Hangman, catch any exception
-            Core.Hangman hangman;
-
-            // OO: Move this try-catch-block to "Main" or don't use try-catch at all
-            try
-            {
-                hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("\nError: An error occured when trying to start the game.");
-                return;
-            }
+            Core.Hangman hangman = new Core.Hangman(wordToGuess, numberOfGuesses);
 
             while (!hangman.GameEnded())
             {
